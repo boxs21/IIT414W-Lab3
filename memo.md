@@ -4,9 +4,7 @@
 
 **Decision it could support.** At the end of each lap, the alert flags rivals who may enter the pits within their next three laps, so the pit wall knows whom to watch more closely (for example before choosing to cover an undercut). It predicts what a rival will do; it does not say what our car should do.
 
-**How we tested it.** We trained on 2018–2021 races and compared systems on the first 11 races of 2022. Every system could raise an alert on at most 10% of rival-laps (945 of 9,451). We count how many of the 370 real pit entries received at least one alert in the three laps before them.
-
-**What we found (11 races of 2022).**
+**What we found.** Trained on 2018–2021; tested on the first 11 races of 2022, with at most 10% of rival-laps alerted (945 of 9,451). An entry counts as warned if it got an alert in the three laps before it.
 
 | System | Alerts | Alerts that were right | Pit entries warned |
 |---|---:|---:|---:|
@@ -15,7 +13,7 @@
 | Original forest model | 945 | 36% | 140 of 370 (38%) |
 | **Adjusted forest model** | **938** | **40%** | **159 of 370 (43%)** |
 
-The adjusted model (each rule must be supported by at least 100 past laps, instead of 30) warned of 19 more pit entries than the original with slightly fewer alerts. Still, about 6 of every 10 alerts (562 of 938) were for rivals who did not pit in that window, and 211 of 370 entries got no warning.
+The adjusted model (each rule backed by at least 100 past laps, not 30) warned of 19 more entries with slightly fewer alerts. Still, about 6 of every 10 alerts (562 of 938) were for rivals who did not pit in that window, and 211 of 370 entries got no warning.
 
 **Most relevant weakness.** The model is blind to early stops: all 49 entries made on tyres 5 laps old or less got no warning. These are often the surprising stops (damage, penalties, weather) where help is most needed. Also, at Miami, a circuit missing from the 2018–2021 history, one race received 19% of all alerts and three of four were false.
 

@@ -6,7 +6,7 @@ Evidence: threshold is chosen on dev by `choose_threshold` (`pitwindow_student_v
 
 ## Truthful use / no-use record
 
-**Tool and use.** Claude (Anthropic), used through Claude Code inside this folder, by both members. It was used to read the supplied modules, draft explanations and check counts against the frozen exports. Every number we kept was re-checked against `comparison_table.md`, `outputs/*.csv` or a notebook cell output. Eight interactions in total:
+**Tool and use.** Claude (Anthropic), used through Claude Code inside this folder, by both members. It was used to read the supplied modules, draft explanations and check counts against the frozen exports. Every number we kept was re-checked against `comparison_table.md`, `outputs/*.csv` or a notebook cell output. Nine interactions in total:
 
 | # | Who | What we asked | What the AI suggested (faithful summary) | Accepted / rejected | Exact check and repository evidence |
 |---|---|---|---|---|---|
@@ -18,6 +18,7 @@ Evidence: threshold is chosen on dev by `choose_threshold` (`pitwindow_student_v
 | 6 | Agustín | Draft the memo for the Head of Strategy. | First draft said the model gives "a 43% chance a rival pits". | **Rejected** that sentence: 0.430 is event recall on dev and the score is a ranking, not a calibrated probability. Kept the table and the "further checking, not live use" recommendation. | `memo.md` table vs `comparison_table.md` (938 alerts, 376 TP, 159/370 entries). |
 | 7 | Agustín | Reproduce the run on Windows and compare with the committed table. | Re-run headless with `nbconvert --execute` and diff `comparison_table.md`. | Accepted. All counts, thresholds and events identical; only forest_all AP differs in the 4th–5th decimal. | README "Our actual environment and run"; `outputs/run_manifest_v3.json` `experiment_complete: true`. |
 | 8 | Andy | Install the pinned requirements on Python 3.14 (macOS). | Install `requirements_lab03_v3.txt` as given. | Rejected after it failed: numpy 2.0.2 has no wheel for 3.14. Installed unpinned numpy with pandas/sklearn pins and documented the real versions. | README "Our actual environment and run (macOS)". |
+| 9 | Andy | Final review before submitting: "Is everything OK? Give us your honest opinion." | Package is complete (6 systems / 12 rows, `experiment_complete: true`, memo figures match `comparison_table.md`). Its opinion: the analysis is defensible because every mechanism is marked as a hypothesis and the dev-selection bias is declared; risks were the memo exceeding one printed page, `PROMPTS.md` details not matching what we really did, and instructor access to the repo. Suggested merging "How we tested it" into "What we found". | Accepted: trimmed the memo and reviewed this record line by line. We decided ourselves to keep "Most relevant weakness" and "Next check" in full. | `memo.md` (no "How we tested it" heading); print preview of `memo.md`; repository opened from a logged-out browser. |
 
 **One limitation relevant to this work.** The AI reads the same dev results we used to pick the threshold and the winner, so it cannot provide an independent test; it also tended to state mechanisms (smoother leaves, tree diversity, circuit encoding) as facts. We only kept counts we could trace to an export and marked every mechanism as a hypothesis.
 
