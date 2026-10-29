@@ -6,16 +6,22 @@ Evidence: threshold is chosen on dev by `choose_threshold` (`pitwindow_student_v
 
 ## Truthful use / no-use record
 
-Tool and use, or “No AI used for this lab”:
+**Tool and use.** Claude (Anthropic), used through Claude Code inside this folder, by both members. It was used to read the supplied modules, draft explanations and check counts against the frozen exports. Every number we kept was re-checked against `comparison_table.md`, `outputs/*.csv` or a notebook cell output. Eight interactions in total:
 
-If used, one actual suggestion (quote or faithful summary):
-What we accepted/rejected:
-Exact check performed and repository evidence:
-One limitation relevant to this work:
+| # | Who | What we asked | What the AI suggested (faithful summary) | Accepted / rejected | Exact check and repository evidence |
+|---|---|---|---|---|---|
+| 1 | Agustín | Explain what one row, `y` and `event_id` mean before writing section 1. | Each row is the end of a rival's lap L; `y=1` if that rival enters within L+1..L+3; `event_id` is written after the horizon and must stay out of X. | Accepted, rewritten in our words. | `FEATURES` in `outputs/run_manifest_v3.json` contains 9 columns and no `event_id`; section 1 of the notebook. |
+| 2 | Andy | Which of the three allowed tuples should we run? | Proposed running all three and keeping the best on dev. | **Rejected**: that is a hidden search. We chose one tuple (`forest_sqrt`, `min_samples_leaf` 30 → 100) with a written reason. | `experiment_spec.md` ("Other trials already made: None"); `extra-config` cell; manifest `change`. |
+| 3 | Andy | Help write the expectation before the first run. | Draft predicting lower train recall, smaller gap and dev recall roughly 0.34–0.38. | Accepted as written before the run; kept unchanged after the result even though dev recall rose to 0.430. | `experiment_spec.md`; section 4 "Did our expectation hold? Partly". |
+| 4 | Agustín | Explain why forest_sqrt beats forest_all at almost the same alert count. | `max_features='sqrt'` (~6 of 48 columns per split) makes trees more varied; stated as a measured fact. | Partly accepted: kept the mechanism but labelled it a hypothesis because we never measured tree correlation. | Section 2: 140 vs 107 entries, 945 vs 938 alerts, matching `comparison_table.md` dev rows. |
+| 5 | Andy | Find error patterns in the candidate's dev predictions. | HARD-tyre false alerts, circuit 151 false alerts, missed fresh-tyre entries. | Accepted after checking; added the overlap note (72 of 136 circuit-151 FPs are also HARD) that the AI's first draft summed as separate errors. | Query cells `context-query`, `context-query-p2`, `context-query-p3`, `event-query`; `outputs/context_errors_v3.csv`, `outputs/event_errors_v3.csv`. |
+| 6 | Agustín | Draft the memo for the Head of Strategy. | First draft said the model gives "a 43% chance a rival pits". | **Rejected** that sentence: 0.430 is event recall on dev and the score is a ranking, not a calibrated probability. Kept the table and the "further checking, not live use" recommendation. | `memo.md` table vs `comparison_table.md` (938 alerts, 376 TP, 159/370 entries). |
+| 7 | Agustín | Reproduce the run on Windows and compare with the committed table. | Re-run headless with `nbconvert --execute` and diff `comparison_table.md`. | Accepted. All counts, thresholds and events identical; only forest_all AP differs in the 4th–5th decimal. | README "Our actual environment and run"; `outputs/run_manifest_v3.json` `experiment_complete: true`. |
+| 8 | Andy | Install the pinned requirements on Python 3.14 (macOS). | Install `requirements_lab03_v3.txt` as given. | Rejected after it failed: numpy 2.0.2 has no wheel for 3.14. Installed unpinned numpy with pandas/sklearn pins and documented the real versions. | README "Our actual environment and run (macOS)". |
 
-Do not invent an error or interaction. No minimum number of prompts is required.
+**One limitation relevant to this work.** The AI reads the same dev results we used to pick the threshold and the winner, so it cannot provide an independent test; it also tended to state mechanisms (smoother leaves, tree diversity, circuit encoding) as facts. We only kept counts we could trace to an export and marked every mechanism as a hypothesis.
 
 ## Contributions
 
-- Contributor 1, concrete action and related file/cell:
-- Contributor 2, concrete action and related file/cell:
+- **Agustín Reyes:** wrote "1. Define the prediction" (`student-target` cell) and "2. Explain the common comparison" (`student-base-reasoning`), the common AI audit and this record in `PROMPTS.md`, drafted and edited `memo.md` (recommendation first, per Lab 2 feedback), reproduced the run on Windows and updated `README.md`.
+- **Andy Villarroel:** set up the macOS environment, wrote `experiment_spec.md` before the run, configured and ran the candidate (`extra-config`, `extra-run`), wrote "4. Explain your additional result" (`student-change-reasoning`) and ran the section 5 queries behind "Your three entries" (`student-error-analysis`).

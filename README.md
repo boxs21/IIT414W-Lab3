@@ -1,5 +1,7 @@
 # Lab 3 start here
 
+**Team:** Agustín Reyes and Andy Villarroel. Repository: https://github.com/boxs21/IIT414W-Lab3. Notebook: `Lab03_ModelComparison_Student_v3.ipynb`.
+
 Due Thu 29 October 2026, 12:30 Santiago. Same pairs as Lab 2. 100 points, 6% NP.
 Read the short route in `IIT414W_Lab03_Brief_v3.md`; criterion components are in `RUBRIC_Lab03_v3.md`.
 
@@ -64,8 +66,8 @@ One additional configuration may be rerun for reproducibility. In section 5, set
 Python 3.12 was not available on our Mac, so we used Python 3.14.6 with a project venv.
 Tested versions: numpy 2.5.4, pandas 2.3.1, scikit-learn 1.8.0, scipy 1.18.1, joblib 1.6.0
 (scikit-learn and pandas match the course pins; numpy 2.0.2 has no wheel for Python 3.14).
-The five base systems reproduce every count, threshold and event figure of the supplied starter table;
-only the optional AP of forest_all differs in the 4th-5th decimal (0.236095 vs 0.236137 on dev), likely from the different numpy/joblib build.
+On that Mac run the five base systems reproduced every count, threshold and event figure of the supplied starter table;
+only the optional AP of forest_all differed in the 4th-5th decimal (0.236095 vs 0.236137 on dev), likely from the different numpy/joblib build.
 
 ```bash
 # from this folder
@@ -79,3 +81,15 @@ python3 -m venv .venv
 Additional candidate: `forest_sqrt`, `min_samples_leaf` 30 → 100 (set in the `extra-config` cell).
 Expected after a run: 6 systems / 12 train-dev rows, `experiment_complete: true` in `outputs/run_manifest_v3.json`.
 All paths are relative to this folder.
+
+## Final run (Windows) that produced the committed outputs
+
+The committed notebook and exports come from a Restart + Run All on Windows 11 with the system Python 3.14.3
+(numpy 1.26.4, pandas 2.3.1, scikit-learn 1.8.0, scipy 1.17.1, joblib 1.5.3; no `.venv`).
+Every count, threshold and event figure is identical to the macOS run; forest_all AP now matches the starter value (0.236137 on dev).
+
+```text
+# from this folder, in PowerShell or cmd
+python -m pip install pandas==2.3.1 scikit-learn==1.8.0 scipy numpy joblib nbformat nbclient ipykernel nbconvert
+python -m nbconvert --to notebook --execute --inplace Lab03_ModelComparison_Student_v3.ipynb
+```

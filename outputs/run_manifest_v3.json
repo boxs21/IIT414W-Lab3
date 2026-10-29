@@ -15,13 +15,13 @@
   },
   "completion_note": "Execution only; reasoning, error analysis and memo must be checked separately",
   "generated_sha256": {
-    "development_predictions_v3.csv": "06435deb474f7aa4384c10b994ff889c1e17c1aa2e1a4ab85323a90b45844d82",
-    "context_errors_v3.csv": "2ed9c5a9d9dfc5b69e3550d1c1cff71b3a0369290d35246bd1d73dfb57124def",
-    "event_errors_v3.csv": "0f6cfd224193563bce1aac5ac4308d78647f8811d174994e9f8966e8aff7943b"
+    "development_predictions_v3.csv": "ea372d2f2a984f1fd93d4542c2b60237dde6bc662b3add1d3dfc92c5313f43f2",
+    "context_errors_v3.csv": "43ba7a679955098508bfbabc1807bfe22ae445d259e0f574fda90d46c7bdc129",
+    "event_errors_v3.csv": "33f89c3d41904d25cfa329141262121ef9f995414a6a128f2812c1333d00048f"
   },
-  "comparison_markdown_sha256": "73ac0c7ae3dfb5e989c3e34a964c79f6612a3a6d7e15aeb209df4fb511f1bf90",
+  "comparison_markdown_sha256": "ec0882f10a921df96575dc67cf527f89cf57643d00273e3d481341036d44f0ec",
   "learning_sha256": "6782cfca5940fbe7683c8b03cdb8e5a9f2990f426dc7b8f3182eec32cd7f0b3f",
-  "comparison_sha256": "7c24f659d6bb45bde01e26ae51e96077d2ffb166ba1c8f4a5c44d1f451f0839c",
+  "comparison_sha256": "84eb8c630095e3c20b093fe4a0e4ddb068afe9efa3fa7f7a1e1ebc84d4f69f98",
   "support_sha256": {
     "lab03_support_v3.py": "25c2d1294aaf7628103fa98e59a252c8fbe23a33865bbb02321f33ff581fa423",
     "pitwindow_student_v2.py": "5e5369b7c43ce626273a7c3ca71de29644f88a2eb243df0cf73d5d711a6e1bf3"
@@ -89,11 +89,11 @@
       "event_recall": 0.4297297297297297
     }
   },
-  "python": "3.14.6",
+  "python": "3.14.3",
   "versions": {
-    "numpy": "2.5.4",
+    "numpy": "1.26.4",
     "pandas": "2.3.1",
     "scikit-learn": "1.8.0",
-    "joblib": "1.6.0"
+    "joblib": "1.5.3"
   }
 }
